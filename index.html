@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 賣旗籌款日報名表</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --gold: #c9a84c;
+    --cream: #faf8f3;
+    --white: #ffffff;
+    --text: #2c3550;
+    --muted: #7a8099;
+    --border: #ddd8cc;
+    --red: #c0392b;
+    --success: #27ae60;
+    --warning-bg: #fff8e1;
+    --warning-border: #c9a84c;
+    --warning-text: #7a6020;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  .hero {
+    background: var(--navy);
+    padding: 48px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 40px,
+      rgba(201,168,76,0.04) 40px, rgba(201,168,76,0.04) 41px
+    );
+  }
+
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 5px 16px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(24px, 5vw, 38px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    position: relative;
+  }
+
+  .info-bar {
+    background: var(--gold);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .info-item {
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 500;
+    border-right: 1px solid rgba(26,39,68,0.15);
+  }
+
+  .info-item:last-child { border-right: none; }
+
+  .address-bar {
+    background: #f0f3fa;
+    border-bottom: 1px solid #d8dff0;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--navy);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .address-icon { font-size: 14px; flex-shrink: 0; }
+
+  @media (max-width: 600px) {
+    .address-bar { font-size: 11px; padding: 8px 14px; }
+  }
+
+  .form-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .notice {
+    background: var(--warning-bg);
+    border-left: 3px solid var(--warning-border);
+    margin: 32px 0 0;
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--warning-text);
+    line-height: 1.7;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .gift-notice {
+    background: #eef6ee;
+    border-left: 3px solid var(--success);
+    margin: 12px 0 0;
+    padding: 14px 20px;
+    font-size: 13px;
+    color: #1e6e3a;
+    line-height: 1.7;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    font-weight: 500;
+    margin: 36px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .field { margin-bottom: 22px; }
+
+  label.field-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .req { color: var(--red); margin-left: 3px; }
+  .hint { font-weight: 300; color: var(--muted); font-size: 12px; margin-left: 6px; }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="number"],
+  textarea, select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(26,39,68,0.08);
+  }
+
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237a8099' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  /* 參加者卡片 */
+  .participants-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .participant-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .participant-card:focus-within { border-color: var(--navy); }
+
+  .card-header {
+    background: var(--navy);
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-title {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .card-title span {
+    color: var(--gold);
+    font-size: 12px;
+    margin-left: 8px;
+    font-weight: 300;
+  }
+
+  .btn-remove {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.8);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    transition: background 0.2s;
+  }
+
+  .btn-remove:hover { background: rgba(192,57,43,0.6); }
+
+  .card-body { padding: 18px; }
+
+  .card-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .card-row.full { grid-template-columns: 1fr; }
+
+  .card-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .card-field input,
+  .card-field select {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .minor-warning {
+    display: none;
+    background: #fff3e0;
+    border: 1px solid #ffb74d;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #e65100;
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+
+  /* 監護人區域 */
+  .guardian-section {
+    display: none;
+    background: #f5f7fc;
+    border: 1.5px solid #c5cde8;
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 12px;
+  }
+
+  .guardian-section.visible { display: block; }
+
+  .uniform-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .uniform-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .uniform-option:hover { border-color: var(--navy); background: #f5f7fc; }
+
+  .uniform-option input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--navy);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .uniform-no {
+    border-style: dashed;
+    color: var(--muted);
+  }
+
+  .minor-notice {
+    background: #fff3e0;
+    border: 1px solid #ffb74d;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #e65100;
+    margin: 12px 0;
+    line-height: 1.6;
+  }
+
+  .guardian-same-wrap {
+    margin-bottom: 12px;
+  }
+
+  .guardian-same-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--navy);
+    cursor: pointer;
+    font-weight: 500;
+    background: #e8edf8;
+    border-radius: 6px;
+    padding: 8px 12px;
+  }
+
+  .guardian-same-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+
+  .guardian-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--navy);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .guardian-title::before {
+    content: '👤';
+    font-size: 14px;
+  }
+
+  /* 加人按鈕 */
+  .btn-add {
+    width: 100%;
+    padding: 14px;
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--navy);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .btn-add:hover {
+    border-color: var(--navy);
+    background: #f0f3fa;
+  }
+
+  .btn-add-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  /* 提交 */
+  .submit-area { margin-top: 40px; text-align: center; }
+
+  .btn-submit {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    padding: 16px 56px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-submit:hover { background: #243566; transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { background: #aaa; cursor: not-allowed; transform: none; }
+  .btn-submit .btn-text { display: inline-block; }
+  .btn-submit .btn-loading { display: none; }
+  .btn-submit.loading .btn-text { display: none; }
+  .btn-submit.loading .btn-loading { display: inline-block; }
+
+  .deadline { margin-top: 14px; font-size: 12px; color: var(--muted); }
+
+  .error-msg {
+    display: none;
+    background: #fde8e8;
+    border: 1px solid #f5c6c6;
+    color: var(--red);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-top: 16px;
+    text-align: left;
+  }
+
+  /* 提交編號 */
+  .submission-id-box {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0 0;
+    text-align: center;
+  }
+
+  .submission-id-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .submission-id-number {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 4px;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .submission-id-hint {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+
+  /* 成功畫面 */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .success-icon {
+    width: 72px;
+    height: 72px;
+    background: var(--success);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 32px;
+    color: white;
+  }
+
+  .success-screen h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 24px;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+
+  .success-screen p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 2;
+  }
+
+  .success-event-info {
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 20px 0 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .success-event-row {
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .success-gift {
+    background: #eef6ee;
+    border-left: 3px solid var(--success);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #1e6e3a;
+    line-height: 1.7;
+    margin-top: 12px;
+    text-align: left;
+  }
+
+  .success-confirm {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 16px 0 0;
+    text-align: left;
+  }
+
+  .success-confirm-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--navy);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .success-confirm-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .success-confirm-list li {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .success-confirm-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: 500;
+  }
+
+  .success-contact {
+    margin-top: 24px;
+    background: var(--warning-bg);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--warning-text);
+    line-height: 1.8;
+  }
+
+  .funds-notice {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 12px 0 0;
+  }
+
+  .funds-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .funds-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  .funds-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .funds-list li {
+    font-size: 13px;
+    color: var(--text);
+    padding: 8px 12px;
+    background: var(--cream);
+    border-radius: 6px;
+    border-left: 3px solid var(--gold);
+    line-height: 1.5;
+  }
+
+  .contact-intro {
+    background: #eef1f8;
+    border-left: 3px solid var(--navy);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--navy);
+    line-height: 1.7;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 22px;
+  }
+
+  .participants-hint {
+    background: #f0f3fa;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .confirm-section {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-top: 28px;
+  }
+
+  .confirm-section-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .confirm-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 0;
+  }
+
+  .confirm-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .confirm-item:hover { border-color: var(--navy); background: #f5f7fc; }
+  .confirm-item.checked { border-color: var(--success); background: #f0faf3; }
+
+  .confirm-item input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--navy);
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    .info-bar { flex-direction: column; }
+    .info-item { border-right: none; border-bottom: 1px solid rgba(26,39,68,0.15); justify-content: center; }
+    .info-item:last-child { border-bottom: none; }
+    .card-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">路德會社會服務處</div>
+  <h1>2026 <span>路德會社會服務處</span><br>售旗籌款活動報名表</h1>
+  <p class="hero-sub">攜手同行 · 關愛社區</p>
+</div>
+
+<div class="info-bar">
+  <div class="info-item">📅 2026年6月20日（星期六）</div>
+  <div class="info-item">🕘 上午 9:30 – 11:30</div>
+  <div class="info-item">📍 荃灣區內（本中心集合及解散）</div>
+</div>
+
+<div class="address-bar">
+  <span class="address-icon">🏢</span>
+  <span>路德會賽馬會海濱花園綜合服務中心：荃灣海濱花園怡樂徑 2-12 號平台 D2 樓</span>
+</div>
+
+<div class="form-wrap">
+
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h2>報名成功！</h2>
+    <p>多謝你的報名！<br>我們已收到你的資料。<br>如有任何活動安排更改，中心將另行通知。</p>
+
+    <div class="submission-id-box">
+      <div class="submission-id-label">提交編號</div>
+      <span class="submission-id-number" id="submissionId">—</span>
+      <div class="submission-id-hint">請保留此編號以作紀錄或查詢之用</div>
+    </div>
+
+    <div class="success-event-info">
+      <div class="success-event-row">📅 2026年6月20日（星期六）</div>
+      <div class="success-event-row">🕘 上午 9:30 – 11:30</div>
+      <div class="success-event-row">📍 荃灣區內（本中心集合及解散）</div>
+    </div>
+
+    <div class="success-gift">
+      🎁 每位參加者均獲贈紀念品乙份及銘謝狀乙張，銘謝狀內附服務時數記錄。
+    </div>
+
+    <div class="success-contact">
+      如需取消或更改報名，<br>
+      請致電 <strong>2406 0407</strong> 聯絡傑Sir。
+    </div>
+  </div>
+
+    <div id="preFormInfo">
+  <div class="notice">
+    ⚠️ 惡劣天氣安排：如上午 6:30 前懸掛黃色／紅色／黑色暴雨警告或三號或以上颱風訊號，活動即時取消，中心將另行通知。
+  </div>
+  <div class="gift-notice">
+    🎁 每位參加者均獲贈紀念品乙份及銘謝狀乙張，銘謝狀內附服務時數記錄。
+  </div>
+
+  <div class="funds-notice">
+    <div class="funds-title">善款用途</div>
+    <div class="funds-desc">籌募所得之善款將用作路德會社會服務處之事工經費，包括：</div>
+    <ul class="funds-list">
+      <li>自負盈虧安老服務</li>
+      <li>社區中心優化設施</li>
+      <li>路德會關愛計劃</li>
+      <li>過渡性房屋項目</li>
+    </ul>
+  </div>
+
+  </div>
+
+  <form id="regForm">
+
+    <div class="section-label">主要聯絡人資料</div>
+
+    <div class="contact-intro">
+      請填寫負責是次報名的人士資料，方便中心日後聯絡。主要聯絡人若本身也參加賣旗活動，請在下方參加者名單一併填寫。
+    </div>
+
+    <div class="field">
+      <label class="field-label">聯絡人姓名<span class="req">*</span></label>
+      <input type="text" id="contactName" placeholder="請填寫姓名" required>
+    </div>
+
+    <div class="field">
+      <label class="field-label">聯絡電話<span class="req">*</span></label>
+      <input type="tel" id="contactPhone" placeholder="手提電話號碼" required oninput="syncPhoneToParticipants()">
+    </div>
+
+    <div class="field">
+      <label class="field-label">WhatsApp 號碼<span class="hint">（如與上同可不填）</span></label>
+      <input type="tel" id="contactWhatsapp" placeholder="選填">
+    </div>
+
+    <div class="section-label">參加者名單</div>
+
+    <div class="participants-hint">
+      請逐一填寫所有參加者資料。每位參加者的聯絡電話預設為主要聯絡人號碼，如參加者本身有電話可在下方空格填寫。
+    </div>
+
+    <div class="participants-list" id="participantsList"></div>
+
+    <button type="button" class="btn-add" id="btnAdd">
+      <span class="btn-add-icon">+</span>
+      加入參加者
+    </button>
+
+    <div class="field" style="margin-top: 28px;">
+      <label class="field-label">備註 / 特別需要</label>
+      <textarea id="remarks" placeholder="如有參加者有特殊需要或其他需要注意的情況，請在此說明"></textarea>
+    </div>
+
+    <div class="confirm-section">
+      <div class="confirm-section-title">請確認以下事項後方可提交</div>
+      <ul class="confirm-list">
+        <li class="confirm-item" id="confirmItem0">
+          <input type="checkbox" id="confirm0" onchange="toggleConfirmStyle(0)">
+          <span>18歲以下之參加者須全程由監護人陪同</span>
+        </li>
+        <li class="confirm-item" id="confirmItem1">
+          <input type="checkbox" id="confirm1" onchange="toggleConfirmStyle(1)">
+          <span>所提供之個人資料只用於本次活動安排及緊急聯絡用途</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span class="btn-text">提交報名</span>
+        <span class="btn-loading">提交中⋯</span>
+      </button>
+      <p class="deadline">報名截止日期：2026 年 6 月 6 日</p>
+      <div class="error-msg" id="errorMsg"></div>
+    </div>
+
+  </form>
+
+
+
+</div>
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzk3djFI1GFuHsGWnPEBDGptdzOrYA0nBy7Yr-nt9utfVLeSmkBrbg2qNHmaAqXlhlL/exec';
+
+  var participantCount = 0;
+
+  function addParticipant() {
+    participantCount++;
+    var idx = participantCount;
+    var list = document.getElementById('participantsList');
+    var displayNum = list.children.length + 1;
+
+    var card = document.createElement('div');
+    card.className = 'participant-card';
+    card.id = 'participant-' + idx;
+    card.innerHTML =
+      '<div class="card-header">' +
+        '<div class="card-title">參加者 ' + displayNum + '<span>（所有欄位必填）</span></div>' +
+        (displayNum > 1 ? '<button type="button" class="btn-remove" onclick="removeParticipant(' + idx + ')">移除</button>' : '') +
+      '</div>' +
+      '<div class="card-body">' +
+        '<div class="card-row">' +
+          '<div class="card-field"><label>姓名 <span class="req">*</span></label><input type="text" id="p' + idx + '_name" placeholder="中文全名" required></div>' +
+          '<div class="card-field"><label>年齡 <span class="req">*</span></label><input type="number" id="p' + idx + '_age" placeholder="例：10" min="1" max="120" required onchange="checkAge(' + idx + ')"></div>' +
+        '</div>' +
+        '<div class="card-row full">' +
+          '<div class="card-field"><label>與主要聯絡人關係 <span class="req">*</span></label>' +
+            '<select id="p' + idx + '_relation">' +
+              '<option value="">請選擇</option>' +
+              '<option value="本人">本人（聯絡人自己參加）</option>' +
+              '<option value="子女">子女</option>' +
+              '<option value="父／母">父／母</option>' +
+              '<option value="兄弟姊妹">兄弟姊妹</option>' +
+              '<option value="祖父母">祖父母</option>' +
+              '<option value="其他親屬">其他親屬</option>' +
+              '<option value="朋友">朋友</option>' +
+            '</select>' +
+          '</div>' +
+        '</div>' +
+        '<div class="card-row full">' +
+          '<div class="card-field"><label>聯絡電話 <span class="hint">（預設為主要聯絡人號碼，如有本人電話可修改）</span></label><input type="tel" id="p' + idx + '_phone" placeholder="電話號碼"></div>' +
+        '</div>' +
+        '<div class="card-row full">' +
+          '<div class="card-field"><label>是否為中心制服團體成員？ <span class="req">*</span></label>' +
+            '<div class="uniform-group" id="p' + idx + '_uniformGroup">' +
+              '<label class="uniform-option"><input type="radio" name="p' + idx + '_uniform" value="基年少年軍"> 基年少年軍</label>' +
+              '<label class="uniform-option"><input type="radio" name="p' + idx + '_uniform" value="小童軍"> 小童軍</label>' +
+              '<label class="uniform-option"><input type="radio" name="p' + idx + '_uniform" value="幼童軍"> 幼童軍</label>' +
+              '<label class="uniform-option"><input type="radio" name="p' + idx + '_uniform" value="深資童軍"> 深資童軍</label>' +
+              '<label class="uniform-option uniform-no"><input type="radio" name="p' + idx + '_uniform" value="否"> 否，並非制服團體成員</label>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="guardian-section" id="p' + idx + '_guardian">' +
+          '<div class="guardian-title">監護人資料</div>' +
+          '<div class="guardian-same-wrap">' +
+            '<label class="guardian-same-label">' +
+              '<input type="checkbox" id="p' + idx + '_guardianSame" onchange="fillGuardianFromContact(' + idx + ')">' +
+              '與主要聯絡人相同' +
+            '</label>' +
+          '</div>' +
+          '<div class="card-row">' +
+            '<div class="card-field"><label>監護人姓名 <span class="req">*</span></label><input type="text" id="p' + idx + '_guardianName" placeholder="姓名"></div>' +
+            '<div class="card-field"><label>與參加者關係 <span class="req">*</span></label>' +
+              '<select id="p' + idx + '_guardianRel">' +
+                '<option value="">請選擇</option>' +
+                '<option value="父親">父親</option>' +
+                '<option value="母親">母親</option>' +
+                '<option value="祖父">祖父</option>' +
+                '<option value="祖母">祖母</option>' +
+                '<option value="外祖父">外祖父</option>' +
+                '<option value="外祖母">外祖母</option>' +
+                '<option value="其他監護人">其他監護人</option>' +
+              '</select>' +
+            '</div>' +
+          '</div>' +
+          '<div class="card-row full">' +
+            '<div class="card-field"><label>監護人聯絡電話 <span class="req">*</span></label><input type="tel" id="p' + idx + '_guardianPhone" placeholder="手提電話號碼"></div>' +
+          '</div>' +
+          '<div class="minor-notice">未滿18歲人士必須在監護人或制服團隊領袖陪同下參與活動。</div>' +
+          '<div class="card-row full" style="margin-bottom:0">' +
+            '<div class="card-field"><label>出席安排 <span class="req">*</span></label>' +
+              '<div class="uniform-group">' +
+                '<label class="uniform-option"><input type="radio" name="p' + idx + '_escort" value="由監護人陪同參與"> 由監護人陪同參與</label>' +
+                '<label class="uniform-option"><input type="radio" name="p' + idx + '_escort" value="由制服團隊領袖帶領售旗"> 由制服團隊領袖帶領售旗</label>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    list.appendChild(card);
+
+    var phoneInput = document.getElementById('p' + idx + '_phone');
+    var contactPhone = document.getElementById('contactPhone').value;
+    if (contactPhone) phoneInput.value = contactPhone;
+    phoneInput.addEventListener('input', function() { this.dataset.modified = 'true'; });
+  }
+
+  function removeParticipant(idx) {
+    document.getElementById('participant-' + idx).remove();
+    renumberCards();
+  }
+
+  function renumberCards() {
+    document.querySelectorAll('.participant-card').forEach(function(card, i) {
+      var titleEl = card.querySelector('.card-title');
+      if (titleEl) titleEl.innerHTML = '參加者 ' + (i + 1) + '<span>（所有欄位必填）</span>';
+    });
+  }
+
+  function checkAge(idx) {
+    var age = parseInt(document.getElementById('p' + idx + '_age').value);
+    var guardian = document.getElementById('p' + idx + '_guardian');
+    if (!isNaN(age) && age < 18) {
+      guardian.classList.add('visible');
+    } else {
+      guardian.classList.remove('visible');
+    }
+  }
+
+  function syncPhoneToParticipants() {
+    var phone = document.getElementById('contactPhone').value;
+    document.querySelectorAll('[id$="_phone"]').forEach(function(input) {
+      if (!input.dataset.modified) input.value = phone;
+    });
+  }
+
+  function fillGuardianFromContact(idx) {
+    var cb = document.getElementById('p' + idx + '_guardianSame');
+    var nameInput = document.getElementById('p' + idx + '_guardianName');
+    var phoneInput = document.getElementById('p' + idx + '_guardianPhone');
+    if (cb.checked) {
+      nameInput.value = document.getElementById('contactName').value.trim();
+      nameInput.disabled = true;
+      phoneInput.value = document.getElementById('contactPhone').value.trim();
+      phoneInput.disabled = true;
+    } else {
+      nameInput.value = '';
+      nameInput.disabled = false;
+      phoneInput.value = '';
+      phoneInput.disabled = false;
+    }
+  }
+
+  function toggleConfirmStyle(idx) {
+    var item = document.getElementById('confirmItem' + idx);
+    var cb = document.getElementById('confirm' + idx);
+    item.classList.toggle('checked', cb.checked);
+  }
+
+  function showError(msg) {
+    var el = document.getElementById('errorMsg');
+    el.textContent = '⚠ ' + msg;
+    el.style.display = 'block';
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  document.getElementById('btnAdd').addEventListener('click', addParticipant);
+
+  document.getElementById('regForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var contactName = document.getElementById('contactName').value.trim();
+    var contactPhone = document.getElementById('contactPhone').value.trim();
+    var errorMsg = document.getElementById('errorMsg');
+    errorMsg.style.display = 'none';
+
+    if (!contactName) { showError('請填寫主要聯絡人姓名。'); return; }
+    if (!contactPhone) { showError('請填寫聯絡電話。'); return; }
+
+    var cards = document.querySelectorAll('.participant-card');
+    if (cards.length === 0) { showError('請加入至少一位參加者。'); return; }
+
+    var participants = [];
+    var hasError = false;
+
+    cards.forEach(function(card, i) {
+      if (hasError) return;
+      var num = i + 1;
+      var idPrefix = card.id.replace('participant-', 'p');
+      var name = document.getElementById(idPrefix + '_name').value.trim();
+      var age = document.getElementById(idPrefix + '_age').value.trim();
+      var relation = document.getElementById(idPrefix + '_relation').value;
+
+      if (!name || !age || !relation) {
+        showError('請填寫第 ' + num + ' 位參加者的所有資料。');
+        hasError = true; return;
+      }
+
+      var uniformChecked = document.querySelector('input[name="' + idPrefix + '_uniform"]:checked');
+      if (!uniformChecked) {
+        showError('請選擇第 ' + num + ' 位參加者是否為制服團體成員。');
+        hasError = true; return;
+      }
+
+      var ageNum = parseInt(age);
+      var guardianName = '', guardianRel = '', guardianPhone = '', escort = '不適用';
+
+      if (ageNum < 18) {
+        guardianName = document.getElementById(idPrefix + '_guardianName').value.trim();
+        guardianRel = document.getElementById(idPrefix + '_guardianRel').value;
+        guardianPhone = document.getElementById(idPrefix + '_guardianPhone').value.trim();
+        if (!guardianName || !guardianRel || !guardianPhone) {
+          showError('第 ' + num + ' 位參加者未滿18歲，請填寫完整監護人資料。');
+          hasError = true; return;
+        }
+        var escortChecked = document.querySelector('input[name="' + idPrefix + '_escort"]:checked');
+        if (!escortChecked) {
+          showError('第 ' + num + ' 位參加者未滿18歲，請選擇出席安排。');
+          hasError = true; return;
+        }
+        escort = escortChecked.value;
+      }
+
+      var pPhone = document.getElementById(idPrefix + '_phone').value.trim() || contactPhone;
+      participants.push({
+        name: name, age: age, relation: relation, phone: pPhone,
+        uniform: uniformChecked.value, escort: escort,
+        guardianName: guardianName || '不適用',
+        guardianRel: guardianRel || '不適用',
+        guardianPhone: guardianPhone || '不適用'
+      });
+    });
+
+    if (hasError) return;
+
+    for (var c = 0; c < 2; c++) {
+      if (!document.getElementById('confirm' + c).checked) {
+        showError('請確認所有事項後方可提交。');
+        return;
+      }
+    }
+
+    var now = new Date();
+    var yy = String(now.getFullYear()).slice(2);
+    var mm = String(now.getMonth() + 1).padStart(2, '0');
+    var dd = String(now.getDate()).padStart(2, '0');
+    var rand = String(Math.floor(Math.random() * 9000) + 1000);
+    var submissionId = 'S' + yy + mm + dd + rand;
+
+    var data = {
+      submissionId: submissionId,
+      contactName: contactName,
+      contactPhone: contactPhone,
+      contactWhatsapp: document.getElementById('contactWhatsapp').value.trim() || '（同聯絡電話）',
+      participants: participants,
+      totalCount: participants.length,
+      remarks: document.getElementById('remarks').value.trim() || '無'
+    };
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.classList.add('loading');
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(function() {
+      document.getElementById('submissionId').textContent = submissionId;
+      document.getElementById('regForm').style.display = 'none';
+      document.getElementById('preFormInfo').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+
+    }).catch(function() {
+      showError('提交時發生錯誤，請稍後再試或致電 2406 0407 聯絡傑Sir。');
+      btn.disabled = false;
+      btn.classList.remove('loading');
+    });
+  });
+
+  addParticipant();
+</script>
+</body>
+</html>
